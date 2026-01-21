@@ -8,7 +8,7 @@ export const users = pgTable("users", {
     name: text("name"),
     imageUrl: text("image_url"),
     createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-    updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull().$onUpdate(() => new Date()),
 });
 
 export const products = pgTable("products", {
@@ -16,19 +16,19 @@ export const products = pgTable("products", {
     title: text("title").notNull(),
     description: text("description").notNull(),
     imageUrl: text("image_url").notNull(),
-    userId: text("user_id").notNull().references(() => users.id,{onDelete:"cascade"}),
+    userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
     createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-    updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull().$onUpdate(() => new Date()),
 });
 
 
 export const comments = pgTable("comments", {
     id: uuid("id").primaryKey().defaultRandom(),
     content: text("content").notNull(),
-    userId: text("user_id").notNull().references(() => users.id,{onDelete:"cascade"}),
-    productId: uuid("product_id").notNull().references(() => products.id,{onDelete:"cascade"}),
+    userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+    productId: uuid("product_id").notNull().references(() => products.id, { onDelete: "cascade" }),
     createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-    updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull().$onUpdate(() => new Date()),
 });
 
 // relations defines how tables are related to each other evables dirzzle query API
@@ -40,21 +40,21 @@ export const userRelations = relations(users, ({ many }) => ({
 
 //products reations
 
-export const productsRelations = relations(products,({one, many}) =>({
+export const productsRelations = relations(products, ({ one, many }) => ({
     comments: many(comments),
 
     //fileds = foreign keys in this table
     //references = primary keys in the related table
-    user: one(users,{fields:[products.userId], references:[users.id]}),
+    user: one(users, { fields: [products.userId], references: [users.id] }),
 }));
 
 
 //comments relations
 
-export const commentsRelations = relations(comments,({one}) =>({
-    user: one(users,{fields:[comments.userId], references:[users.id]}),
-    product: one(products,{fields:[comments.productId], references:[products.id]}),
-})); 
+export const commentsRelations = relations(comments, ({ one }) => ({
+    user: one(users, { fields: [comments.userId], references: [users.id] }),
+    product: one(products, { fields: [comments.productId], references: [products.id] }),
+}));
 
 
 export type User = typeof users.$inferSelect;
