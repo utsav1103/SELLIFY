@@ -86,4 +86,27 @@ export const updateProduct = async (id: string, data: Partial<NewProduct>) => {
 export const deletProduct = async (id: string) => {
     const [product] = await db.delete(products).where(eq(products.id, id)).returning();
     return product;
-}
+};
+
+
+//comment queries
+
+
+export const createComment = async (data: NewComment) => {
+
+    const [comment] = await db.insert(comments).values(data).returning();
+    return comment; 
+};
+
+export const deleteComment = async (id: string) => {
+    const [comment] = await db.delete(comments).where(eq(comments.id, id)).returning();
+    return comment;
+};
+
+export const getCommentById = async (id: string) => {
+
+    return db.query.comments.findFirst({
+        where: eq(comments.id, id),
+        with: { user: true },
+    });
+};
