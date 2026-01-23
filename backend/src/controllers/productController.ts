@@ -31,3 +31,18 @@ export const getProductById = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Internal server error" });
     }
 };
+
+//get products by user id // protected route
+export const getMyProducts = async (req: Request, res: Response) => {
+    try {
+       const { userId } = getAuth(req);
+       if (!userId) {
+        return res.status(401).json({ message: "Unauthorized" });
+       }
+        const products = await queries.getProductByUserId(userId);
+        res.status(200).json(products);
+    } catch (error) {
+        console.error("Error fetching products by user id:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }   
+};
