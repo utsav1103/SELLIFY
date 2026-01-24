@@ -1,14 +1,16 @@
+import Navbar from "./components/Navbar";
 
 
 
 
 function App() {
   return (
-    <div >
-      <h1 className="text-purple-600">Welcome</h1>
-      <button className="btn btn-primary">hit me</button>
-      
-
+    <div className="min-h-screen bg-base-100" >
+      <Navbar />
+      <main>
+        
+      </main>
+     
     </div>
   );
 } export default App;
