@@ -12,7 +12,7 @@ function useAuthReq() {
         const interceptor = api.interceptors.request.use(
             async (config) => {
                 if (isSignedIn) {
-                    const token = getToken();
+                    const token = await getToken();
                     if (token) {
                         config.headers.Authorization = `Bearer ${token}`;
                     }
