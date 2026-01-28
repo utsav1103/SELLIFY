@@ -13,7 +13,7 @@ import useUserSync from "./hooks/useUserSync";
 
 function App() {
   // const {data,isError,isLoading,refetch} = useQuery();
-  const {isClerkLoaded,isSignedIn} = useAuthReq();
+  const {isClerkLoaded} = useAuthReq();
   useUserSync();
 
   if(!isClerkLoaded){
