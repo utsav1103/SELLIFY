@@ -1,4 +1,6 @@
 import LoadingSpinner from "../components/LoadingSpinner";
+import ProductCard from "../components/ProductCard";
+
 import { useProducts } from "../hooks/useProducts"
 import {Link} from "react-router";
 import { PackageIcon, SparklesIcon } from "lucide-react";

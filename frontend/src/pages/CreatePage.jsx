@@ -11,7 +11,7 @@ function CreatePage() {
   const [formData, setFormData] = useState({title:"", description:"", imageUrl:""});
 
   const handleSubmit = async (e) => {
-    e.preventfault();
+    e.preventDefault();
     createProduct.mutate(formData, {
       onSuccess:()=> navigate("/"),
     });
@@ -19,12 +19,12 @@ function CreatePage() {
 
   return (
     <div className="max-w-lg mx-auto">
-      <Link className="max-w-lg mx-auto">
+      <Link to="/" className="max-w-lg mx-auto">
       <ArrowLeftIcon className="size-4"/> Back
       </Link>
 
 
-      <div className="class bg-base-300">
+      <div className="card bg-base-300">
         <div className="card-body">
           <h2 className="card-title"><SparklesIcon className="size-5 text-primary"/> New Product</h2>
 
