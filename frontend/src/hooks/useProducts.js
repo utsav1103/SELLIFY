@@ -27,3 +27,7 @@ export const useDeleteProduct = () => {
         mutationFn: deleteProduct,
     });
 };
+
+export const useMyProducts  = () => {
+  return useQuery({ queryKey: ["myProducts"], queryFn: getMyProducts });
+};
