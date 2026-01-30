@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { createProduct, getAllProducts, getProductById } from '../lib/api';
+import { createProduct, deleteProduct, getAllProducts, getProductById } from '../lib/api';
 
 
 export const useProducts = () => {
@@ -19,5 +19,11 @@ export const useProduct = (id) => {
         queryFn: () => getProductById(id),
         enabled: !!id
         // !! two exclamiantion marks convets to boolean valuse as id is a string we conveted it- !! this is called double bang operator
+    });
+};
+
+export const useDeleteProduct = () => {
+    return useMutation({
+        mutationFn: deleteProduct,
     });
 };
