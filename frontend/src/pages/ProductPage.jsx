@@ -1,6 +1,6 @@
 import { ArrowLeftIcon, EditIcon, Trash2Icon, CalendarIcon, UserIcon } from "lucide-react";
 import LoadingSpinner from "../components/LoadingSpinner";
-//import CommentsSection from "../components/CommentsSection";
+import CommentsSection from "../components/CommentsSection";
 import { useAuth } from "@clerk/clerk-react";
 import { useProduct, useDeleteProduct } from "../hooks/useProducts";
 import { useParams, Link, useNavigate } from "react-router";
@@ -93,9 +93,38 @@ function ProductPage() {
                 {product.user?.name}
               </div>
             </div>
+
+            <div className="divider my-2">
+
+            </div>
+            <p className="text-base-content/80 leading-relaxed">{product.description}</p>
+            {product.user && (
+              <>
+                <div className="divider my-2"></div>
+                <div className="flex items-center gap-3">
+                  <div className="avatar">
+                    <div className="w-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                      <img src={product.user.imageUrl} alt={product.user.name} />
+                    </div>
+                  </div>
+                  <div>
+                    <p className="font-semibold">{product.user.name}</p>
+                    <p className="text-xs text-base-content/50">Creator</p>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
+
+      {/* Comments */}
+      <div className="card bg-base-300">
+        <div className="card-body">
+          <CommentsSection productId={id} comments={product.comments} currentUserId={userId} />
+        </div>
+      </div>
+
     </div>
   );
 }
