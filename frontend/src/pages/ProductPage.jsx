@@ -4,7 +4,7 @@ import CommentsSection from "../components/CommentsSection";
 import { useAuth } from "@clerk/clerk-react";
 import { useProduct, useDeleteProduct } from "../hooks/useProducts";
 import { useParams, Link, useNavigate } from "react-router";
-import { useId } from "react";
+
 
 
 
@@ -14,7 +14,8 @@ function ProductPage() {
   const { userId } = useAuth();
   const navigate = useNavigate();
 
-  const { data: product, isLoading, error } = useProduct(id);
+  const { data, isLoading, error } = useProduct(id);
+  const product = data ?? [];
   const deleteProduct = useDeleteProduct();
 
   const handleDelete = () => {
